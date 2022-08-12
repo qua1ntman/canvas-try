@@ -3,6 +3,13 @@ import '../style.css'
 import { Player } from './Player/Player'
 import { Platform } from './Platform/Platform'
 import { Points } from './Points/Points';
+import { Time } from './Time/Time';
+import { CanvasTwo } from './canvasTwo';
+
+const CANVASTWO = new CanvasTwo()
+CANVASTWO.drawLine()
+CANVASTWO.brawRect()
+CANVASTWO.drawCircle()
 
 const canvas = document.getElementById('canvas')
 const context = canvas.getContext('2d')
@@ -43,6 +50,8 @@ function addPlatforms(n) {
   }
 }
 
+let START = false
+
 addPlatforms(4)
 
 const keys = {
@@ -64,12 +73,25 @@ const keys = {
 let scrollOffset = 0
 
 const points = new Points(context)
+let time
+
 
 function animate() {
   setTimeout(() => {
     requestAnimationFrame(animate) // animation in browser
   }, 10);
   context.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (keys.right.pressed || keys.left.pressed) START = true
+
+  if (START) {
+    if (!time) time = new Time(context, Date.now())
+    time.draw()
+  } else {
+    time = new Time(context, Date.now())
+    time.draw()
+  }
+
 
   // show points
   if (points.points !== -scrollOffset) {
@@ -81,7 +103,7 @@ function animate() {
   if (keys.right.pressed && player.position.x < 500) {
     player.velocity.x = 6
   } else if (keys.left.pressed && player.position.x >= 100) {
-    if (scrollOffset >= 0 && player.position.x === 100) {
+    if (scrollOffset >= 50 && player.position.x === 100) {
       console.log(scrollOffset, player.position.x, player.velocity.x, 123123);
       player.velocity.x = 0
     }
@@ -92,7 +114,7 @@ function animate() {
   } else {
     player.velocity.x = 0
     if (keys.left.pressed) {
-      if (scrollOffset >= 0 && player.position.x <= 100) {
+      if (scrollOffset >= 50 && player.position.x <= 100) {
         console.log(scrollOffset, player.position.x, player.velocity.x, 5555);
         player.velocity.x = 0
       } else {
