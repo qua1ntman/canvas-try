@@ -1,11 +1,17 @@
 body {
   display: flex;
+  flex-direction: column;
   background-color: black;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
 }
 
-canvas {
+#canvas {
   background-color: rgb(158, 158, 255);
+  margin: auto;
+}
+
+#canvas2 {
+  background-color: rgb(255, 255, 255);
   margin: auto;
 }

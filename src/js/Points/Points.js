@@ -7,6 +7,7 @@ export class Points {
 
   draw() {
     this.context.font = this.font;
+    this.context.fillStyle='black';
     this.context.fillText(`${Math.round(this.points / 10)}`, 30, 50, 100);
   }
 }
