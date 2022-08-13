@@ -94,7 +94,7 @@ function animate() {
 
 
   // show points
-  if (points.points !== -scrollOffset) {
+  if (points.points !== -scrollOffset && scrollOffset <= 0) {
     points.points = -scrollOffset
   }
   points.draw()
@@ -146,7 +146,7 @@ function animate() {
         keys.up.times = 0
       }
   })
-
+  if (player.position.y > canvas.height) location.reload()
   player.update()
 }
 
